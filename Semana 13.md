@@ -71,3 +71,38 @@ Para cada universidad, cuente el número de pel ́ıculas dirigidas por sus alum
 ```ruby
 
 ```
+
+### P7
+Encuentre la causa de muerte m ́as com ́un para las personas educadas en universidades
+peruanas. Retorne el nombre de la causa de muerte y la cuenta. Ordene convenientemente.
+Podemos ver que, si sabemos algo de SPARQL, Wikidata nos permite responder consultas
+muy espec ́ıficas, las que ser ́ıa horrible responder manualmente. El  ́unico problema es la
+incompletitud: mientras un modelo basado en grafos nos permite modelar datos diversos e
+incompletos de forma f ́acil, es dificil saber cu ́ando estamos obteniendo todos los resultados
+deseados. Sin embargo, podemos obtener r ́apidamente al menos algunos resultados y, a
+medida que Wikidata est ́a siendo editada cada vez m ́as por m ́as y m ́as usuarios, podemos
+esperar que la completitud aumente.
+
+
+```ruby
+SELECT ?causa_muerte (COUNT(?causas_muertes) AS ?num_muertes_por_causa) WHERE {
+  ?uni wdt:P31 wd:Q3918.
+  ?uni rdfs:label ?unom.
+  ?uni wdt:P17 wd:Q419.
+  ?person wdt:P69 ?uni.
+  ?person rdfs:label ?pnom.
+  ?person wdt:P509 ?causas_muertes.
+  ?causas_muertes rdfs:label ?causa_muerte.
+  
+  FILTER((LANG(?pnom)) = "es")
+  FILTER((LANG(?unom)) = "es")
+  FILTER((LANG(?causa_muerte)) = "es")
+ 
+
+}
+                      
+GROUP BY (?causa_muerte)
+GROUP BY (?num_muertes_por_causa)   
+```
+
+👀: **No correr los dos "GROUP BY" al mismo tiempo.**
