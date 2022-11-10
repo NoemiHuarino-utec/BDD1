@@ -106,3 +106,6 @@ GROUP BY (?num_muertes_por_causa)
 ```
 
 👀: **No correr los dos "GROUP BY" al mismo tiempo.**
+
+## Tarea extra y voluntaria
+Se habilitará en Canvas hasta la **semana 16** y es **+1** punto en la nota final de la Evaluación Continua I del curso.
